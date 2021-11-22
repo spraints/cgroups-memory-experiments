@@ -10,6 +10,9 @@ import (
 )
 
 func Run(children int, bytesPerSecond uint64) {
+	log.Print("starting")
+	defer log.Print("done")
+
 	var wg sync.WaitGroup
 	wg.Add(children)
 	for i := 0; i < children; i++ {
@@ -36,9 +39,7 @@ func ps() {
 }
 
 func runChild(childNum int, bytesPerSecond uint64) {
-	err := run("go", "run", ".",
-		"-child-number", fmt.Sprint(childNum),
-		"-rate", fmt.Sprint(bytesPerSecond))
+	err := run("./c", fmt.Sprint(childNum), fmt.Sprint(bytesPerSecond))
 	if err != nil {
 		log.Printf("child %d: %v", childNum, err)
 	}
