@@ -1,0 +1,11 @@
+#!/bin/bash
+
+src="$(pwd)"
+set -x
+docker run -it --rm \
+  --memory 1gb \
+  --memory-swap 0 \
+  -v "${src}:/src" \
+  -w "/src" \
+  golang:1.17.2 \
+  go run . "$@"
